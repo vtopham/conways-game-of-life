@@ -15,11 +15,13 @@ const StyledGameDiv = styled.div`
 
 `
 
-const Game = () => {
+const Game = props => {
+    const {gameState, setGameState} = props;
+
     return(
         <StyledGameDiv >
             <Header />
-            <Canvas />
+            <Canvas gameState = {gameState} setGameState = {setGameState}/>
             <Options />
         </StyledGameDiv>
     )

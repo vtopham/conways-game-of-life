@@ -9,10 +9,11 @@ const StyledCanvas = styled.canvas`
 `
 
 
-const Canvas = () => {
+const Canvas = props => {
+    const {gameState, setGameState} = props;
 
-    const gridSize = 10;
-    const cellSize = 20;
+    const gridSize = gameState.gridSize;
+    const cellSize = gameState.cellSize;
     const gridLength = gridSize * cellSize;
 
     useEffect(() => {
@@ -33,8 +34,6 @@ const Canvas = () => {
             ctx.lineTo(gridLength, y);
             ctx.stroke();
         }
-
-
     },[])
 
     return(
