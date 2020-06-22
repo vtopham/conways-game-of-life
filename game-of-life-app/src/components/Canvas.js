@@ -59,17 +59,13 @@ const Canvas = props => {
         if (isRunning) {
             return null
         }
-        const c = document.getElementById("game-canvas")
-        const r = c.getBoundingClientRect()
+        const c = document.getElementById("game-canvas");
+        const r = c.getBoundingClientRect();
 
-        console.log(`The rect! x is ${r.x} and y is ${r.y}`)
         //These are the offsets for the click event info
-        // const offsetX = c.offsetLeft
-        // const offsetY = c.offsetTop
 
-        const offsetX = r.x
-        const offsetY = r.y
-        console.log(`The offset! x is ${offsetX} and y is ${offsetY}`)
+        const offsetX = r.x;
+        const offsetY = r.y;
         //These are the values as supplied by the click event
         
         const clickX = event.clientX;
@@ -82,14 +78,11 @@ const Canvas = props => {
         //This is the cell number of what was clicked (From top-left)
         const x = Math.floor(pixelX / cellSize)
         const y = Math.floor(pixelY / cellSize)
-        //BLAH
+       
 
         
         //This is the array index in state of the cell that was clicked
         const arrIndex = x + y * gridSize
-        // console.log(`user clicked ${arrIndex}`)
-        // console.log(`Y position is ${pixelY}`)
-        // console.log(`Scroll is ${window.pageYOffset}`)
         const newArr = gameState.cellLife;
         newArr[arrIndex] = !newArr[arrIndex];
         //Toggle the state for that cell

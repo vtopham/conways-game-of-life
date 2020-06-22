@@ -9,10 +9,12 @@ function App() {
     'gridSize': 25,
     'cellSize': 15,
     'cellLife': new Array(25 * 25).fill(false),
-    'running': false
+    'running': false,
+    'freq': 500
   }
   const [gameState, setGameState] = useState(start)
   const [isRunning, setIsRunning] = useState(false)
+  
   
   return (
     <>

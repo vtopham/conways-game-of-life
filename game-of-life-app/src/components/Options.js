@@ -38,7 +38,7 @@ const Options = props => {
         if(isRunning){
             setTimeout(() => {
                 gameLoop()
-            }, 500)
+            }, gameState.freq)
             
         }
     },[gameState, isRunning])
@@ -59,12 +59,16 @@ const Options = props => {
     const changeSize = event => {
         event.preventDefault();
         const size = event.target.value
-        setGameState({
-            ...gameState,
-            'gridSize': size,
-            'cellLife': new Array(size * size).fill(false),
-        })
         setIsRunning(false)
+        setTimeout(() => {
+            setGameState({
+                ...gameState,
+                'gridSize': size,
+                'cellLife': new Array(size * size).fill(false),
+            })
+        },gameState.freq + 1)
+        
+        
         
     }
 
@@ -76,7 +80,7 @@ const Options = props => {
                 ...gameState,
                 'cellLife': new Array(size * size).fill(false),
             })
-        }, 501)
+        }, gameState.freq + 1)
         setIsRunning(false)
     }
 
