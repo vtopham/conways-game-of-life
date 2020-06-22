@@ -61,6 +61,7 @@ const Canvas = props => {
         }
         const c = document.getElementById("game-canvas");
         const r = c.getBoundingClientRect();
+        console.log(r)
 
         //These are the offsets for the click event info
 
