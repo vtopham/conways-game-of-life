@@ -71,10 +71,12 @@ const Options = props => {
     const clearGame = event => {
         event.preventDefault();
         const size = gameState.gridSize;
-        setGameState({
-            ...gameState,
-            'cellLife': new Array(size * size).fill(false),
-        })
+        setTimeout(() => {
+            setGameState({
+                ...gameState,
+                'cellLife': new Array(size * size).fill(false),
+            })
+        }, 501)
         setIsRunning(false)
     }
 
