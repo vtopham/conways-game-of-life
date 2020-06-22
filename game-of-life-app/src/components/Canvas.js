@@ -36,10 +36,60 @@ const Canvas = props => {
         }
     },[])
 
+    useEffect(() => {
+        const c = document.getElementById("game-canvas");
+        const ctx = c.getContext("2d");
+        //Shade in boxes if gameState is true (alive)
+        for (let i = 0; i < gameState.cellLife.length ; i++) {
+            if (gameState.cellLife[i]) {
+                const tlX = (i % gridSize) * cellSize;
+                const tlY = (Math.floor(i / gridSize)) * cellSize;
+                //draw a rectangle
+                console.log(`The cooordinates are x: ${tlX} and y: ${tlY}`)
+                ctx.fillRect(tlX, tlY, cellSize, cellSize)
+            }
+        }
+    })
+
+    const clickCell = event => {
+        event.preventDefault();
+        const c = document.getElementById("game-canvas")
+        //These are the offsets for the click event info
+        const offsetX = c.offsetLeft
+        const offsetY = c.offsetTop
+        
+        //These are the values as supplied by the click event
+        const clickX = event.clientX;
+        const clickY = event.clientY;
+
+        //These are the true relative coordinates on the canvas
+        const pixelX = clickX - offsetX
+        const pixelY = clickY - offsetY
+        
+
+        //This is the cell number of what was clicked (From top-left)
+        const x = Math.floor(pixelX / cellSize)
+        const y = Math.floor(pixelY / cellSize)
+        
+
+        //This is the array index in state of the cell that was clicked
+        const arrIndex = x + y * gridSize
+        console.log(`user clicked ${arrIndex}`)
+        const newArr = gameState.cellLife;
+        newArr[arrIndex] = !newArr[arrIndex];
+        //Toggle the state for that cell
+        //TODO: make this cleaner
+        setGameState({
+            ...gameState,
+            'cellLife': newArr
+        })
+        
+    }
+
     return(
         <>
         <h2>This is where the canvas will go</h2>
-        <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength}>
+        <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell}>
            
         </StyledCanvas>
         </>

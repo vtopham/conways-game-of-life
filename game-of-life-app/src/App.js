@@ -6,9 +6,9 @@ import Game from './components/Game.js'
 function App() {
   
   const start = {
-    'gridSize': 5,
+    'gridSize': 10,
     'cellSize': 20,
-    'cellLife': new Array(10 * 10).fill(0)
+    'cellLife': new Array(10 * 10).fill(false)
   }
   const [gameState, setGameState] = useState(start)
   
