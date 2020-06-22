@@ -41,6 +41,83 @@ const Options = props => {
         }
         )
     }
+
+    const startGame = event => {
+        event.preventDefault();
+        if(gameState.running) {
+            return null;
+        }
+
+        setGameState({
+            ...gameState,
+            'running': true
+        })
+
+
+
+    }
+
+    const gameLoop = () => {
+        const curArr = gameState.cellLife
+        const size = gameState.gridSize
+        const newArr = curArr.map((cell, index) => {
+            //get the number of live cells
+            let neighbors = 0
+            //top row!
+            if (index >= size) {
+                //if there is a top left
+                if (index % size != 0) {
+                    if (curArr[index - size - 1]) {
+                        neighbors += 1
+                    }
+                }
+                //if there is a top middle
+                if (curArr[index - size]) {
+                    neighbors += 1
+                }
+                //if there is a top right
+                if (index % size != size - 1) {
+                    if (curArr[index - size + 1]) {
+                        neighbors += 1
+                    }
+                }
+            }
+            //middle
+            if (index % size != 0) {
+                if (curArr[index - 1]) {
+                    neighbors += 1
+                }
+            }
+            if (index % size != size - 1) {
+                if (curArr[index + 1]) {
+                    neighbors += 1
+                }
+            }
+
+            //bottom
+            if (index < size * (size - 1)) {
+                if (index % size != 0) {
+                    if (curArr[index + size - 1]){
+                        neighbors += 1
+                    }
+                }
+                if(curArr[index + size]) {
+                    neighbors += 1
+                }
+                if (index % size != size - 1) {
+                    if (curArr[index + size + 1]) {
+                        neighbors += 1
+                    }
+                }
+            }
+            
+
+            return neighbors
+        })
+        console.log(newArr)
+
+    }
+
     return(
         <StyledDiv>
             <h2>Options</h2>
@@ -56,8 +133,8 @@ const Options = props => {
                 </select>
             </div>
             <div className = "start-stop">
-                <button>Start</button>
-                <button>Stop</button>
+                <button onClick = {startGame}>Start</button>
+                <button onClick = {gameLoop}>Stop</button>
             </div>
         </StyledDiv>
     )

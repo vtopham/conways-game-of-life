@@ -50,6 +50,7 @@ const Canvas = props => {
         }
     }, [gameState, []])
 
+    
    
 
     const clickCell = event => {
@@ -70,13 +71,11 @@ const Canvas = props => {
         //These are the true relative coordinates on the canvas
         const pixelX = clickX - offsetX
         const pixelY = clickY - offsetY
-        
 
         //This is the cell number of what was clicked (From top-left)
         const x = Math.floor(pixelX / cellSize)
         const y = Math.floor(pixelY / cellSize)
         
-
         //This is the array index in state of the cell that was clicked
         const arrIndex = x + y * gridSize
         console.log(`user clicked ${arrIndex}`)
@@ -91,12 +90,13 @@ const Canvas = props => {
         
     }
 
+
+
     return(
         <>
-        <h2>This is where the canvas will go</h2>
-        <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell}>
+        <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell} />
            
-        </StyledCanvas>
+        
         </>
     )
 }
