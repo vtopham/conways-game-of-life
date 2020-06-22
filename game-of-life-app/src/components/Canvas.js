@@ -10,7 +10,7 @@ const StyledCanvas = styled.canvas`
 
 
 const Canvas = props => {
-    const {gameState, setGameState} = props;
+    const {gameState, setGameState, isRunning} = props;
 
     const gridSize = gameState.gridSize;
     const cellSize = gameState.cellSize;
@@ -56,7 +56,7 @@ const Canvas = props => {
     const clickCell = event => {
         event.preventDefault();
         //if the game is running they can't click the cells
-        if (gameState.running) {
+        if (isRunning) {
             return null
         }
         const c = document.getElementById("game-canvas")

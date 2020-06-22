@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+
 
 const StyledDiv = styled.div`
     display: flex;
@@ -28,7 +29,32 @@ const StyledDiv = styled.div`
 `
 
 const Options = props => {
-    const {gameState, setGameState} = props
+
+    
+    const {gameState, setGameState, isRunning, setIsRunning} = props;
+
+   
+    useEffect(() => {
+        if(isRunning){
+            setTimeout(() => {
+                gameLoop()
+            }, 500)
+            
+        }
+    },[gameState, isRunning])
+    
+    const startGame = event => {
+        event.preventDefault();
+        
+            setIsRunning(true)
+        
+    }
+
+    const stopGame = event => {
+        event.preventDefault();
+        setIsRunning(false)
+        
+    }
 
     const changeSize = event => {
         event.preventDefault();
@@ -37,27 +63,24 @@ const Options = props => {
             ...gameState,
             'gridSize': size,
             'cellLife': new Array(size * size).fill(false),
-            'running': false
-        }
-        )
+        })
+        setIsRunning(false)
+        
     }
 
-    const startGame = event => {
+    const clearGame = event => {
         event.preventDefault();
-        if(gameState.running) {
-            return null;
-        }
-
+        const size = gameState.gridSize;
         setGameState({
             ...gameState,
-            'running': true
+            'cellLife': new Array(size * size).fill(false),
         })
-
-
-
+        setIsRunning(false)
     }
 
+
     const gameLoop = () => {
+        console.log("Game looping!")
         const curArr = gameState.cellLife
         const size = gameState.gridSize
 
@@ -123,8 +146,6 @@ const Options = props => {
             } else {
                 return false;
             }
-
-            return neighbors
         })
         
         setGameState({
@@ -140,12 +161,6 @@ const Options = props => {
             <div className = "size-select">
                 <p>Select a size:</p>
                 <select name = "sizes" id = "sizes" onChange = {changeSize}>
-                    <option value = "5">5 x 5</option>
-                    <option value = "6">6 x 6</option>
-                    <option value = "7">7 x 7</option>
-                    <option value = "8">8 x 8</option>
-                    <option value = "9">9 x 9</option>
-                    <option value = "10">10 x 10</option>
                     <option value = "25">25 x 25</option>
                     <option value = "30">30 x 30</option>
                     <option value = "35">35 x 35</option>
@@ -153,9 +168,10 @@ const Options = props => {
                 </select>
             </div>
             <div className = "start-stop">
+                <button onClick = {clearGame}>Clear</button>
                 <button onClick = {startGame}>Start</button>
                 <button onClick = {gameLoop}>Step</button>
-                <button >Stop</button>
+                <button onClick = {stopGame}>Stop</button>
             </div>
         </StyledDiv>
     )
