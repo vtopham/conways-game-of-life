@@ -31,14 +31,14 @@ const StyledDiv = styled.div`
 const Options = props => {
 
     
-    const {gameState, setGameState, isRunning, setIsRunning} = props;
+    const {gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
 
    
     useEffect(() => {
         if(isRunning){
             setTimeout(() => {
                 gameLoop()
-            }, gameState.freq)
+            }, freq)
             
         }
     },[gameState, isRunning])
@@ -66,22 +66,25 @@ const Options = props => {
                 'gridSize': size,
                 'cellLife': new Array(size * size).fill(false),
             })
-        },gameState.freq + 1)
-        
-        
-        
+        },freq + 1)
+    }
+    const changeSpeed = event => {
+        event.preventDefault();
+        const speed = event.target.value
+        setFreq(speed)
     }
 
     const clearGame = event => {
         event.preventDefault();
         const size = gameState.gridSize;
+        setIsRunning(false);
         setTimeout(() => {
             setGameState({
                 ...gameState,
                 'cellLife': new Array(size * size).fill(false),
             })
-        }, gameState.freq + 1)
-        setIsRunning(false)
+        }, freq + 1)
+        
     }
 
 
@@ -173,12 +176,21 @@ const Options = props => {
 
                 </select>
             </div>
+            <div className = "set-speed">
+            <select name = "speeds" id = "speeds" onChange = {changeSpeed}>
+                    <option value = "1000">1 frame/second</option>
+                    <option value = "500">1 frame / .5 seconds</option>
+                    <option value = "250">1 frame / .25 seconds</option>
+                    <option value = "100">1 frame / .1 seconds</option>
+                </select>
+            </div>
             <div className = "start-stop">
                 <button onClick = {clearGame}>Clear</button>
                 <button onClick = {startGame}>Start</button>
                 <button onClick = {gameLoop}>Step</button>
                 <button onClick = {stopGame}>Stop</button>
             </div>
+            
         </StyledDiv>
     )
 }

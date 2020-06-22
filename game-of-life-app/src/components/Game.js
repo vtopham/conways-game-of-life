@@ -16,13 +16,13 @@ const StyledGameDiv = styled.div`
 `
 
 const Game = props => {
-    const {gameState, setGameState, isRunning, setIsRunning} = props;
+    const {freq, setFreq, gameState, setGameState, isRunning, setIsRunning} = props;
 
     return(
         <StyledGameDiv >
             <Header />
             <Canvas isRunning = {isRunning} gameState = {gameState} setGameState = {setGameState}/>
-            <Options isRunning = {isRunning} setIsRunning = {setIsRunning} gameState = {gameState} setGameState = {setGameState}/>
+            <Options freq = {freq} setFreq = {setFreq} isRunning = {isRunning} setIsRunning = {setIsRunning} gameState = {gameState} setGameState = {setGameState}/>
         </StyledGameDiv>
     )
 }

@@ -10,15 +10,15 @@ function App() {
     'cellSize': 15,
     'cellLife': new Array(25 * 25).fill(false),
     'running': false,
-    'freq': 500
   }
   const [gameState, setGameState] = useState(start)
   const [isRunning, setIsRunning] = useState(false)
+  const [freq, setFreq] = useState(1000)
   
   
   return (
     <>
-      <Game gameState = {gameState} setGameState = {setGameState} isRunning = {isRunning} setIsRunning = {setIsRunning}/>
+      <Game freq = {freq} setFreq = {setFreq} gameState = {gameState} setGameState = {setGameState} isRunning = {isRunning} setIsRunning = {setIsRunning}/>
     </>
   );
 }
