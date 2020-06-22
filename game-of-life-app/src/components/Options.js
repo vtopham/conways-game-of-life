@@ -25,8 +25,6 @@ const StyledDiv = styled.div`
             margin: 2% 2%;
         }
     }
-
-
 `
 
 const Options = () => {
