@@ -60,22 +60,21 @@ const Options = props => {
     const gameLoop = () => {
         const curArr = gameState.cellLife
         const size = gameState.gridSize
+
+        
         const newArr = curArr.map((cell, index) => {
-            //get the number of live cells
+            //get the number of live cells, or "neighbors"
             let neighbors = 0
             //top row!
             if (index >= size) {
-                //if there is a top left
                 if (index % size != 0) {
                     if (curArr[index - size - 1]) {
                         neighbors += 1
                     }
                 }
-                //if there is a top middle
                 if (curArr[index - size]) {
                     neighbors += 1
                 }
-                //if there is a top right
                 if (index % size != size - 1) {
                     if (curArr[index - size + 1]) {
                         neighbors += 1
@@ -111,10 +110,27 @@ const Options = props => {
                 }
             }
             
+            if (neighbors > 3) {
+                return false;
+            } else if (curArr[index] == false) {
+                if (neighbors == 3) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else if (neighbors > 1) {
+                return true;
+            } else {
+                return false;
+            }
 
             return neighbors
         })
-        console.log(newArr)
+        
+        setGameState({
+            ...gameState,
+            'cellLife': newArr
+        })
 
     }
 
@@ -130,11 +146,16 @@ const Options = props => {
                     <option value = "8">8 x 8</option>
                     <option value = "9">9 x 9</option>
                     <option value = "10">10 x 10</option>
+                    <option value = "25">25 x 25</option>
+                    <option value = "30">30 x 30</option>
+                    <option value = "35">35 x 35</option>
+
                 </select>
             </div>
             <div className = "start-stop">
                 <button onClick = {startGame}>Start</button>
-                <button onClick = {gameLoop}>Stop</button>
+                <button onClick = {gameLoop}>Step</button>
+                <button >Stop</button>
             </div>
         </StyledDiv>
     )

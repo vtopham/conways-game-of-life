@@ -44,13 +44,13 @@ const Canvas = props => {
                 const tlX = (i % gridSize) * cellSize;
                 const tlY = (Math.floor(i / gridSize)) * cellSize;
                 //draw a rectangle
-                console.log(`The cooordinates are x: ${tlX} and y: ${tlY}`)
+                // console.log(`The cooordinates are x: ${tlX} and y: ${tlY}`)
                 ctx.fillRect(tlX, tlY, cellSize, cellSize)
             }
         }
     }, [gameState, []])
 
-    
+
    
 
     const clickCell = event => {
@@ -78,7 +78,7 @@ const Canvas = props => {
         
         //This is the array index in state of the cell that was clicked
         const arrIndex = x + y * gridSize
-        console.log(`user clicked ${arrIndex}`)
+        // console.log(`user clicked ${arrIndex}`)
         const newArr = gameState.cellLife;
         newArr[arrIndex] = !newArr[arrIndex];
         //Toggle the state for that cell
