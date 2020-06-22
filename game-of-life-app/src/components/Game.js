@@ -22,7 +22,7 @@ const Game = props => {
         <StyledGameDiv >
             <Header />
             <Canvas gameState = {gameState} setGameState = {setGameState}/>
-            <Options />
+            <Options gameState = {gameState} setGameState = {setGameState}/>
         </StyledGameDiv>
     )
 }

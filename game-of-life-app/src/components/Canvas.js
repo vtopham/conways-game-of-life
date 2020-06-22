@@ -17,9 +17,13 @@ const Canvas = props => {
     const gridLength = gridSize * cellSize;
 
     useEffect(() => {
-        //Draw the lines on the grid
+        
         const c = document.getElementById("game-canvas");
         const ctx = c.getContext("2d");
+
+        //Clear the canvas
+        ctx.clearRect(0,0, gridLength, gridLength)
+        //Draw the lines on the grid
         let x = 0;
         let y = 0;
         while (x < gridLength) {
@@ -34,11 +38,6 @@ const Canvas = props => {
             ctx.lineTo(gridLength, y);
             ctx.stroke();
         }
-    },[])
-
-    useEffect(() => {
-        const c = document.getElementById("game-canvas");
-        const ctx = c.getContext("2d");
         //Shade in boxes if gameState is true (alive)
         for (let i = 0; i < gameState.cellLife.length ; i++) {
             if (gameState.cellLife[i]) {
@@ -49,10 +48,16 @@ const Canvas = props => {
                 ctx.fillRect(tlX, tlY, cellSize, cellSize)
             }
         }
-    })
+    }, [gameState, []])
+
+   
 
     const clickCell = event => {
         event.preventDefault();
+        //if the game is running they can't click the cells
+        if (gameState.running) {
+            return null
+        }
         const c = document.getElementById("game-canvas")
         //These are the offsets for the click event info
         const offsetX = c.offsetLeft

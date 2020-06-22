@@ -8,7 +8,8 @@ function App() {
   const start = {
     'gridSize': 10,
     'cellSize': 20,
-    'cellLife': new Array(10 * 10).fill(false)
+    'cellLife': new Array(10 * 10).fill(false),
+    'running': false
   }
   const [gameState, setGameState] = useState(start)
   

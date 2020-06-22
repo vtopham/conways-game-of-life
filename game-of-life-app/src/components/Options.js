@@ -27,13 +27,26 @@ const StyledDiv = styled.div`
     }
 `
 
-const Options = () => {
+const Options = props => {
+    const {gameState, setGameState} = props
+
+    const changeSize = event => {
+        event.preventDefault();
+        const size = event.target.value
+        setGameState({
+            ...gameState,
+            'gridSize': size,
+            'cellLife': new Array(size * size).fill(false),
+            'running': false
+        }
+        )
+    }
     return(
         <StyledDiv>
             <h2>Options</h2>
             <div className = "size-select">
                 <p>Select a size:</p>
-                <select name = "sizes" id = "sizes">
+                <select name = "sizes" id = "sizes" onChange = {changeSize}>
                     <option value = "5">5 x 5</option>
                     <option value = "6">6 x 6</option>
                     <option value = "7">7 x 7</option>
