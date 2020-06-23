@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 
 
+
 const StyledCanvas = styled.canvas`
     border: 1px solid #000000;
 
@@ -10,7 +11,7 @@ const StyledCanvas = styled.canvas`
 
 
 const Canvas = props => {
-    const {gameState, setGameState, isRunning} = props;
+    const {stamping, setStamping, colorScheme, gameState, setGameState, isRunning} = props;
 
     const gridSize = gameState.gridSize;
     const cellSize = gameState.cellSize;
@@ -26,6 +27,7 @@ const Canvas = props => {
         //Draw the lines on the grid
         let x = 0;
         let y = 0;
+        ctx.strokeStyle = '#464646'
         while (x < gridLength) {
             x += cellSize;
             ctx.moveTo(x, 0);
@@ -43,12 +45,13 @@ const Canvas = props => {
             if (gameState.cellLife[i]) {
                 const tlX = (i % gridSize) * cellSize;
                 const tlY = (Math.floor(i / gridSize)) * cellSize;
-                //draw a rectangle
-                // console.log(`The cooordinates are x: ${tlX} and y: ${tlY}`)
+                //draw a rectangle with a random color from the scheme
+                let rand = Math.floor(Math.random() * colorScheme.length) 
+                ctx.fillStyle = colorScheme[rand]
                 ctx.fillRect(tlX, tlY, cellSize, cellSize)
             }
         }
-    }, [gameState, []])
+    }, [gameState])
 
 
    
@@ -61,7 +64,7 @@ const Canvas = props => {
         }
         const c = document.getElementById("game-canvas");
         const r = c.getBoundingClientRect();
-        console.log(r)
+        
 
         //These are the offsets for the click event info
 
@@ -84,14 +87,43 @@ const Canvas = props => {
         
         //This is the array index in state of the cell that was clicked
         const arrIndex = x + y * gridSize
-        const newArr = gameState.cellLife;
-        newArr[arrIndex] = !newArr[arrIndex];
-        //Toggle the state for that cell
-        //TODO: make this cleaner
-        setGameState({
-            ...gameState,
-            'cellLife': newArr
-        })
+        //if we're not stamping, just let 'em click
+        if (!stamping) {
+            const newArr = gameState.cellLife;
+            newArr[arrIndex] = !newArr[arrIndex];
+            //Toggle the state for that cell
+        
+            setGameState({
+                ...gameState,
+                'cellLife': newArr
+            })
+        } else {
+            //check to see if the stamp can fit
+            const height = stamping.height
+            const width = stamping.width
+            const stampMap = stamping.map
+
+            //check the height/width, if invalid warn. Otherwise, draw!
+            if (arrIndex + (height - 1) * gridSize > gameState.cellLife.length || arrIndex % gridSize + width > gridSize) {
+                alert(`Invalid stamp location. This stamp requires a grid of ${height}h x ${width}w`)
+            } else {
+                const newArr = gameState.cellLife;
+                for (let i = 0; i < stampMap.length; i++) {
+                    const indexToMod = arrIndex + (i % width) + (Math.floor(i / width) * gridSize);
+                    newArr[indexToMod] = stampMap[i]
+                }
+                setGameState({
+                    ...gameState,
+                    'cellLife': newArr
+                })
+                
+            }
+
+            
+
+
+        }
+        
         
     }
 
@@ -99,6 +131,8 @@ const Canvas = props => {
 
     return(
         <>
+        <h3>Generation: {gameState.generation} </h3>
+        {stamping ? <p>In stamping mode...</p> : null}
         <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell} />
            
         
