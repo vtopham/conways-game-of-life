@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import Game from './components/Game.js'
 
+import colors from './functions/colors.js'
+
 function App() {
   
   const start = {
@@ -14,11 +16,20 @@ function App() {
   const [gameState, setGameState] = useState(start)
   const [isRunning, setIsRunning] = useState(false)
   const [freq, setFreq] = useState(1000)
+  const [colorScheme, setColorScheme] = useState(colors[0].colors)
   
   
   return (
     <>
-      <Game freq = {freq} setFreq = {setFreq} gameState = {gameState} setGameState = {setGameState} isRunning = {isRunning} setIsRunning = {setIsRunning}/>
+      <Game 
+        freq = {freq} 
+        setFreq = {setFreq} 
+        gameState = {gameState} 
+        setGameState = {setGameState} 
+        isRunning = {isRunning} 
+        setIsRunning = {setIsRunning}
+        colorScheme = {colorScheme}
+        setColorScheme = {setColorScheme}/>
     </>
   );
 }

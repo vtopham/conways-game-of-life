@@ -3,6 +3,7 @@ import styled from 'styled-components'
 
 
 
+
 const StyledCanvas = styled.canvas`
     border: 1px solid #000000;
 
@@ -10,7 +11,7 @@ const StyledCanvas = styled.canvas`
 
 
 const Canvas = props => {
-    const {gameState, setGameState, isRunning} = props;
+    const {colorScheme, gameState, setGameState, isRunning} = props;
 
     const gridSize = gameState.gridSize;
     const cellSize = gameState.cellSize;
@@ -26,6 +27,7 @@ const Canvas = props => {
         //Draw the lines on the grid
         let x = 0;
         let y = 0;
+        ctx.strokeStyle = '#464646'
         while (x < gridLength) {
             x += cellSize;
             ctx.moveTo(x, 0);
@@ -43,8 +45,9 @@ const Canvas = props => {
             if (gameState.cellLife[i]) {
                 const tlX = (i % gridSize) * cellSize;
                 const tlY = (Math.floor(i / gridSize)) * cellSize;
-                //draw a rectangle
-                // console.log(`The cooordinates are x: ${tlX} and y: ${tlY}`)
+                //draw a rectangle with a random color from the scheme
+                let rand = Math.floor(Math.random() * colorScheme.length) 
+                ctx.fillStyle = colorScheme[rand]
                 ctx.fillRect(tlX, tlY, cellSize, cellSize)
             }
         }

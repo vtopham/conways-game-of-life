@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
+import colors from '../functions/colors'
 
 
 const StyledDiv = styled.div`
@@ -31,7 +32,7 @@ const StyledDiv = styled.div`
 const Options = props => {
 
     
-    const {gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
+    const {colorScheme, setColorScheme, gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
     let globalTimeoutID = null
    
     useEffect(() => {
@@ -85,6 +86,12 @@ const Options = props => {
         })
         
         
+    }
+
+    const changeColor = event => {
+        event.preventDefault();
+        const scheme = event.target.value.split(',');
+        setColorScheme(scheme)
     }
 
 
@@ -167,6 +174,13 @@ const Options = props => {
     return(
         <StyledDiv>
             <h2>Options</h2>
+            <div className = "color-schemes">
+                <select name = "colors" id = "colors" onChange = {changeColor}>
+                    {colors.map(scheme => {
+                        return <option value = {scheme.colors}>{scheme.name}</option>
+                    })}
+                </select>
+            </div>
             <div className = "size-select">
                 <p>Select a size:</p>
                 <select name = "sizes" id = "sizes" onChange = {changeSize}>
