@@ -32,11 +32,11 @@ const Options = props => {
 
     
     const {gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
-
+    let globalTimeoutID = null
    
     useEffect(() => {
         if(isRunning){
-            setTimeout(() => {
+            globalTimeoutID = setTimeout(() => {
                 gameLoop()
             }, freq)
             
@@ -45,13 +45,12 @@ const Options = props => {
     
     const startGame = event => {
         event.preventDefault();
-        
-            setIsRunning(true)
-        
+        setIsRunning(true)
     }
 
     const stopGame = event => {
         event.preventDefault();
+        clearTimeout(globalTimeoutID)
         setIsRunning(false)
         
     }
@@ -59,15 +58,16 @@ const Options = props => {
     const changeSize = event => {
         event.preventDefault();
         const size = event.target.value
+        clearTimeout(globalTimeoutID)
         setIsRunning(false)
-        setTimeout(() => {
-            setGameState({
-                ...gameState,
-                'gridSize': size,
-                'cellLife': new Array(size * size).fill(false),
-            })
-        },freq + 1)
+        setGameState({
+            ...gameState,
+            'gridSize': size,
+            'cellLife': new Array(size * size).fill(false),
+        })
+        
     }
+
     const changeSpeed = event => {
         event.preventDefault();
         const speed = event.target.value
@@ -78,12 +78,12 @@ const Options = props => {
         event.preventDefault();
         const size = gameState.gridSize;
         setIsRunning(false);
-        setTimeout(() => {
-            setGameState({
-                ...gameState,
-                'cellLife': new Array(size * size).fill(false),
-            })
-        }, freq + 1)
+        clearTimeout(globalTimeoutID)
+        setGameState({
+            ...gameState,
+            'cellLife': new Array(size * size).fill(false),
+        })
+        
         
     }
 
