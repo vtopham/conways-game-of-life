@@ -11,7 +11,7 @@ const StyledCanvas = styled.canvas`
 
 
 const Canvas = props => {
-    const {colorScheme, gameState, setGameState, isRunning} = props;
+    const {stamping, setStamping, colorScheme, gameState, setGameState, isRunning} = props;
 
     const gridSize = gameState.gridSize;
     const cellSize = gameState.cellSize;
@@ -87,14 +87,43 @@ const Canvas = props => {
         
         //This is the array index in state of the cell that was clicked
         const arrIndex = x + y * gridSize
-        const newArr = gameState.cellLife;
-        newArr[arrIndex] = !newArr[arrIndex];
-        //Toggle the state for that cell
-        //TODO: make this cleaner
-        setGameState({
-            ...gameState,
-            'cellLife': newArr
-        })
+        //if we're not stamping, just let 'em click
+        if (!stamping) {
+            const newArr = gameState.cellLife;
+            newArr[arrIndex] = !newArr[arrIndex];
+            //Toggle the state for that cell
+        
+            setGameState({
+                ...gameState,
+                'cellLife': newArr
+            })
+        } else {
+            //check to see if the stamp can fit
+            const height = stamping.height
+            const width = stamping.width
+            const stampMap = stamping.map
+
+            //check the height/width, if invalid warn. Otherwise, draw!
+            if (arrIndex + (height - 1) * gridSize > gameState.cellLife.length || arrIndex % gridSize + width > gridSize) {
+                alert(`Invalid stamp location. This stamp requires a grid of ${height}h x ${width}w`)
+            } else {
+                const newArr = gameState.cellLife;
+                for (let i = 0; i < stampMap.length; i++) {
+                    const indexToMod = arrIndex + (i % width) + (Math.floor(i / width) * gridSize);
+                    newArr[indexToMod] = stampMap[i]
+                }
+                setGameState({
+                    ...gameState,
+                    'cellLife': newArr
+                })
+                
+            }
+
+            //check the width
+
+
+        }
+        
         
     }
 

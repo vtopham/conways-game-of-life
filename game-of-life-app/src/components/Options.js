@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import styled from 'styled-components'
 import colors from '../functions/colors'
+import stamps from '../functions/stamps'
 
 
 const StyledDiv = styled.div`
@@ -32,8 +33,9 @@ const StyledDiv = styled.div`
 const Options = props => {
 
     
-    const {colorScheme, setColorScheme, gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
-    let globalTimeoutID = null
+    const {stamping, setStamping, colorScheme, setColorScheme, gameState, setGameState, isRunning, setIsRunning, freq, setFreq} = props;
+    let globalTimeoutID = null;
+    
    
     useEffect(() => {
         if(isRunning){
@@ -92,6 +94,25 @@ const Options = props => {
         event.preventDefault();
         const scheme = event.target.value.split(',');
         setColorScheme(scheme)
+    }
+
+    const changeStamp = event => {
+        event.preventDefault();
+        const index = event.target.value;
+        if(!index){
+            setStamping(false)
+        } else {
+            setStamping(stamps[index])
+        }
+        
+    }
+
+    const cancelStamp = event => {
+        event.preventDefault();
+        setStamping(false)
+        const dropdown = document.getElementById("stamps")
+        console.log(dropdown)
+        dropdown.value = dropdown[0].value
     }
 
 
@@ -174,7 +195,18 @@ const Options = props => {
     return(
         <StyledDiv>
             <h2>Options</h2>
+            <div className = "stamps">
+                <p>Select a stamp</p>
+                <select name = "stamps" id = "stamps" onChange = {changeStamp}>
+                    <option value = {false}>None</option>
+                    {stamps.map((stamp, index) => {
+                        return <option value = {index}>{stamp.name}</option>
+                    })}
+                </select>
+                <button onClick = {cancelStamp}>Cancel Stamp</button>
+            </div>
             <div className = "color-schemes">
+                <p>Select color scheme:</p>
                 <select name = "colors" id = "colors" onChange = {changeColor}>
                     {colors.map(scheme => {
                         return <option value = {scheme.colors}>{scheme.name}</option>

@@ -17,6 +17,7 @@ function App() {
   const [isRunning, setIsRunning] = useState(false)
   const [freq, setFreq] = useState(1000)
   const [colorScheme, setColorScheme] = useState(colors[0].colors)
+  const [stamping, setStamping] = useState(false)
   
   
   return (
@@ -29,9 +30,12 @@ function App() {
         isRunning = {isRunning} 
         setIsRunning = {setIsRunning}
         colorScheme = {colorScheme}
-        setColorScheme = {setColorScheme}/>
+        setColorScheme = {setColorScheme}
+        stamping = {stamping}
+        setStamping = {setStamping}/>
     </>
   );
 }
+
 
 export default App;
