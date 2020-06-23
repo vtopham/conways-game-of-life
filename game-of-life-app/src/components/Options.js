@@ -85,6 +85,7 @@ const Options = props => {
         setGameState({
             ...gameState,
             'cellLife': new Array(size * size).fill(false),
+            'generation': 0
         })
         noStamp()
         
@@ -192,7 +193,8 @@ const Options = props => {
         
         setGameState({
             ...gameState,
-            'cellLife': newArr
+            'cellLife': newArr,
+            'generation': gameState.generation + 1
         })
 
     }

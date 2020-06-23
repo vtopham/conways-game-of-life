@@ -119,7 +119,7 @@ const Canvas = props => {
                 
             }
 
-            //check the width
+            
 
 
         }
@@ -131,6 +131,7 @@ const Canvas = props => {
 
     return(
         <>
+        <h2>Generation: {gameState.generation} </h2>
         <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell} />
            
         
