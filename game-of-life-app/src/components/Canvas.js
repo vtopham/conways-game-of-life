@@ -131,7 +131,7 @@ const Canvas = props => {
 
     return(
         <>
-        <h2>Generation: {gameState.generation} </h2>
+        <h3>Generation: {gameState.generation} </h3>
         {stamping ? <p>In stamping mode...</p> : null}
         <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell} />
            

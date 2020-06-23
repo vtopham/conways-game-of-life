@@ -16,6 +16,9 @@ const StyledDiv = styled.div`
         box-shadow: -3px 3px 5px #D3D3D3;
         border: 1px solid #D3D3D3;
 
+        margin: 2%;
+        padding: 2%;
+        width: 70;
         &:active{
             box-shadow: none;
         }
@@ -24,8 +27,8 @@ const StyledDiv = styled.div`
     .options {
         // background: #D3D3D3;
         border: #D3D3D3;
-        margin: 2% 0;
-        padding: 2%;
+        margin: 1% 0;
+        // padding: 1%;
         width: 70%;
         display: flex;
         justify-content: center;
@@ -60,8 +63,7 @@ const StyledDiv = styled.div`
         justify-content: space-around;
         width: 70%;
         button {
-            margin: 2%;
-            padding: 2%;
+            
             width: 100%;
         }
         
@@ -282,7 +284,11 @@ const Options = props => {
                         return <option value = {index}>{stamp.name}</option>
                     })}
                 </select>
-                <button onClick = {cancelStamp}>Cancel Stamp</button>
+                {stamping ?
+                <button onClick = {cancelStamp}>Cancel Stamp</button> :
+                <button className = "inactive" onClick = {cancelStamp}>Cancel Stamp</button>
+                }
+                
             </div>
             <div className = "color-schemes options">
                 <p>Change color scheme:</p>

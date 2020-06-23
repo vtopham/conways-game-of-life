@@ -1,8 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const StyledDiv = styled.div`
+
+    background: peachpuff;
+    padding: 2% 4%;
+    border-radius: 5px;
+    color: #464646;
+
+`
 
 const Text = props => {
     return(
-        <>
+        <StyledDiv>
             <section>
                 <h3>Life And Death</h3>
                 <p>The rules are simple:</p>
@@ -19,7 +29,7 @@ const Text = props => {
                 <p>Conway's game of life is a cellular automaton that was invented by John Conway in 1970. This game requies 0 players to play as its progression is determined by its initial state.</p>
                 <p>Cellular automatons are models studied in automata theory. They consist of a grid of cells with a finite number of states such as "on" or "off".</p>
             </section>
-        </>
+        </StyledDiv>
     )
 }
 
