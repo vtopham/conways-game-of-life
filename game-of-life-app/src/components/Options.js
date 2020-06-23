@@ -10,18 +10,20 @@ const StyledDiv = styled.div`
     align-items: center;
     width: 100%;
 
-    .start-stop {
-        display: flex;
-        justify-content: center;
-        button {
-            margin: 2% 2%;
+    button {
+        background: white;
+        border-radius: 5px;
+        box-shadow: -3px 3px 5px #D3D3D3;
+        border: 1px solid #D3D3D3;
+
+        &:active{
+            box-shadow: none;
         }
     }
 
-    
-
     .options {
-        background: grey;
+        // background: #D3D3D3;
+        border: #D3D3D3;
         margin: 2% 0;
         padding: 2%;
         width: 70%;
@@ -51,6 +53,24 @@ const StyledDiv = styled.div`
         * {
             margin: 2% 0;
         }
+    }
+
+    .start-stop {
+        display: flex;
+        justify-content: space-around;
+        width: 70%;
+        button {
+            margin: 2%;
+            padding: 2%;
+            width: 100%;
+        }
+        
+    }
+
+    .inactive {
+        color: white;
+        background: #D3D3D3;
+        box-shadow: none;
     }
 `
 
@@ -227,14 +247,30 @@ const Options = props => {
 
     }
 
+    const sumOfAll = gameState.cellLife.reduce((a, b) => a + b, 0)
     return(
         <StyledDiv>
             <h3>Controls</h3>
             <div className = "start-stop">
+                
+                {sumOfAll === 0 ? 
+                <button className = "inactive" onClick = {clearGame}>Clear</button>: 
                 <button onClick = {clearGame}>Clear</button>
+                } 
+                {isRunning ? 
+                <button className = "inactive" onClick = {startGame}>Start</button> :
                 <button onClick = {startGame}>Start</button>
+                }
+                {isRunning ? 
+                <button className = "inactive" nClick = {step}>Step</button> :
                 <button onClick = {step}>Step</button>
-                <button onClick = {stopGame}>Stop</button>
+                }
+                {isRunning ? 
+                <button onClick = {stopGame}>Stop</button> :
+                <button className = "inactive" onClick = {stopGame}>Stop</button>
+                }
+                
+                
             </div>
             
             <h3>Options</h3>
