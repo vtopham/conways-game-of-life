@@ -86,6 +86,7 @@ const Options = props => {
             ...gameState,
             'cellLife': new Array(size * size).fill(false),
         })
+        noStamp()
         
         
     }
@@ -109,6 +110,10 @@ const Options = props => {
 
     const cancelStamp = event => {
         event.preventDefault();
+        noStamp()
+    }
+
+    const noStamp = () => {
         setStamping(false)
         const dropdown = document.getElementById("stamps")
         console.log(dropdown)
