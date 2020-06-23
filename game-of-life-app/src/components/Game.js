@@ -20,7 +20,7 @@ const Game = props => {
 
     return(
         <StyledGameDiv >
-            <Header />
+            {/* <Header /> */}
             <Canvas 
         stamping = {stamping}
         setIsStamping = {setStamping} colorScheme = {colorScheme} isRunning = {isRunning} gameState = {gameState} setGameState = {setGameState}/>

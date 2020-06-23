@@ -51,7 +51,7 @@ const Canvas = props => {
                 ctx.fillRect(tlX, tlY, cellSize, cellSize)
             }
         }
-    }, [gameState, []])
+    }, [gameState])
 
 
    
@@ -132,6 +132,7 @@ const Canvas = props => {
     return(
         <>
         <h2>Generation: {gameState.generation} </h2>
+        {stamping ? <p>In stamping mode...</p> : null}
         <StyledCanvas id = "game-canvas" width = {gridLength} height = {gridLength} onClick = {clickCell} />
            
         

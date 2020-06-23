@@ -5,16 +5,21 @@ import Game from './components/Game.js'
 import Text from './components/Text.js'
 import colors from './functions/colors.js'
 import styled from 'styled-components'
+import Header from './components/Header.js'
 
 const StyledApp = styled.div`
   display: flex;
+  justify-content: space-between;
   .game {
+    width: 60%;
     padding: 0 5%;
   } 
   .text {
-    width: 30%;
-    padding: 10% 5%;
+    width: 40%;
+    padding: 0 5%;
+    
   }
+  
 
 
 `
@@ -35,6 +40,8 @@ function App() {
   
   
   return (
+    <>
+    <Header />
     <StyledApp>
       <div className = "game">
         <Game 
@@ -54,7 +61,7 @@ function App() {
       </div>
       
     </StyledApp>
-    
+    </>
   );
 }
 

@@ -9,23 +9,47 @@ const StyledDiv = styled.div`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    
-    .size-select{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-
-        p {
-            margin-right: 2%;
-        }
-    }
 
     .start-stop {
-        width: 100%;
         display: flex;
         justify-content: center;
         button {
             margin: 2% 2%;
+        }
+    }
+
+    
+
+    .options {
+        background: grey;
+        margin: 2% 0;
+        padding: 2%;
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        border-radius: 10px;
+        p {
+
+        }
+        select {
+            margin: 0 2%;
+            height: 100%;
+            align-self: center;
+            border-radius: 5px;
+            font-size: 1 rem;
+            padding: 1%;
+        }
+        button {
+            height: 75%;
+            align-self: center;
+        }
+        
+    }
+    .stamps {
+        flex-direction: column;
+        align-items: center;
+        * {
+            margin: 2% 0;
         }
     }
 `
@@ -121,7 +145,11 @@ const Options = props => {
         dropdown.value = dropdown[0].value
     }
 
-
+    const step = () => {
+        if(!isRunning) {
+            gameLoop()
+        }
+    }
     const gameLoop = () => {
         console.log("Game looping!")
         const curArr = gameState.cellLife
@@ -201,9 +229,17 @@ const Options = props => {
 
     return(
         <StyledDiv>
-            <h2>Options</h2>
-            <div className = "stamps">
-                <p>Select a stamp</p>
+            <h3>Controls</h3>
+            <div className = "start-stop">
+                <button onClick = {clearGame}>Clear</button>
+                <button onClick = {startGame}>Start</button>
+                <button onClick = {step}>Step</button>
+                <button onClick = {stopGame}>Stop</button>
+            </div>
+            
+            <h3>Options</h3>
+            <div className = "stamps options">
+                <p>Choose a stamp:</p>
                 <select name = "stamps" id = "stamps" onChange = {changeStamp}>
                     <option value = {false}>None</option>
                     {stamps.map((stamp, index) => {
@@ -212,16 +248,16 @@ const Options = props => {
                 </select>
                 <button onClick = {cancelStamp}>Cancel Stamp</button>
             </div>
-            <div className = "color-schemes">
-                <p>Select color scheme:</p>
+            <div className = "color-schemes options">
+                <p>Change color scheme:</p>
                 <select name = "colors" id = "colors" onChange = {changeColor}>
                     {colors.map(scheme => {
                         return <option value = {scheme.colors}>{scheme.name}</option>
                     })}
                 </select>
             </div>
-            <div className = "size-select">
-                <p>Select a size:</p>
+            <div className = "size-select options">
+                <p>Change grid size:</p>
                 <select name = "sizes" id = "sizes" onChange = {changeSize}>
                     <option value = "25">25 x 25</option>
                     <option value = "30">30 x 30</option>
@@ -229,19 +265,14 @@ const Options = props => {
 
                 </select>
             </div>
-            <div className = "set-speed">
-            <select name = "speeds" id = "speeds" onChange = {changeSpeed}>
+            <div className = "set-speed options">
+                <p>Select a speed: </p>
+                <select name = "speeds" id = "speeds" onChange = {changeSpeed}>
                     <option value = "1000">1 frame/second</option>
                     <option value = "500">1 frame / .5 seconds</option>
                     <option value = "250">1 frame / .25 seconds</option>
                     <option value = "100">1 frame / .1 seconds</option>
                 </select>
-            </div>
-            <div className = "start-stop">
-                <button onClick = {clearGame}>Clear</button>
-                <button onClick = {startGame}>Start</button>
-                <button onClick = {gameLoop}>Step</button>
-                <button onClick = {stopGame}>Stop</button>
             </div>
             
         </StyledDiv>
